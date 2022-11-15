@@ -2,9 +2,6 @@
 
 #include "Result.h"
 #include <cassert>
-#include <atomic>
-
-using namespace res;
 
 template<typename T>
 class Promise {
@@ -16,7 +13,7 @@ public:
 		waiterPointer = waitingPointer;
 	}
 	void setValue(const T& value_);
-	Result<T> makeResult();
+	res::Result<T> makeResult();
 	bool isReady();
 private:
 	T value = T();
@@ -35,7 +32,7 @@ void Promise<T>::setValue(const T& value_) {
 }
 
 template <typename T>
-Result<T> Promise<T>::makeResult() {
+res::Result<T> Promise<T>::makeResult() {
 	assert(wasAssigned);
 	return res::MakeResult(std::move(this->value));
 }
